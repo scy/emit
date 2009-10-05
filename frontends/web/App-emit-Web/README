@@ -1,4 +1,4 @@
-App-FRQBugtracker-Web
+App-emit-Web
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc App::FRQBugtracker::Web
+    perldoc App::emit::Web
 
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-FRQBugtracker-Web
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-emit-Web
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/App-FRQBugtracker-Web
+        http://annocpan.org/dist/App-emit-Web
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/App-FRQBugtracker-Web
+        http://cpanratings.perl.org/d/App-emit-Web
 
     Search CPAN
-        http://search.cpan.org/dist/App-FRQBugtracker-Web
+        http://search.cpan.org/dist/App-emit-Web
 
 
 COPYRIGHT AND LICENCE

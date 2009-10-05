@@ -1,11 +1,11 @@
-package App::FRQBugtracker::Web;
+package App::emit::Web;
 
 use warnings;
 use strict;
 
 =head1 NAME
 
-App::FRQBugtracker::Web - The great new App::FRQBugtracker::Web!
+App::emit::Web - The great new App::emit::Web!
 
 =head1 VERSION
 
@@ -22,9 +22,9 @@ Quick summary of what the module does.
 
 Perhaps a little code snippet.
 
-    use App::FRQBugtracker::Web;
+    use App::emit::Web;
 
-    my $foo = App::FRQBugtracker::Web->new();
+    my $foo = App::emit::Web->new();
     ...
 
 =head1 EXPORT
@@ -50,12 +50,12 @@ sub function2 {
 
 =head1 AUTHOR
 
-Michael Stapelberg, C<< <michael+frqbt at stapelberg.de> >>
+Michael Stapelberg, C<< <michael + emit at stapelberg.de> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-app-frqbugtracker-web at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-FRQBugtracker-Web>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-app-emit-web at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-emit-Web>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -65,7 +65,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc App::FRQBugtracker::Web
+    perldoc App::emit::Web
 
 
 You can also look for information at:
@@ -74,19 +74,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-FRQBugtracker-Web>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-emit-Web>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/App-FRQBugtracker-Web>
+L<http://annocpan.org/dist/App-emit-Web>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/App-FRQBugtracker-Web>
+L<http://cpanratings.perl.org/d/App-emit-Web>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/App-FRQBugtracker-Web>
+L<http://search.cpan.org/dist/App-emit-Web>
 
 =back
 
@@ -103,4 +103,4 @@ This program is released under the following license: BSD
 
 =cut
 
-1; # End of App::FRQBugtracker::Web
+1; # End of App::emit::Web
