@@ -12,7 +12,7 @@ This document contains the design concepts.
 └────────────────────────────────────┘
 
 ┌────────────────────────────────────┐
-│ core                               │
+│ manager                            │
 └────────────────────────────────────┘
 
 ┌────────────────────────────────────┐
@@ -82,25 +82,27 @@ The field definition defines what information is requested from the user
 and stored in the bug. It is loaded as part of the configuration of the
 core.
 
-internal-name:: The name of the field when internally used. This should be
+name:: The name of the field when internally used. This should be
 something simple, but, most importantly, it must never change.
 
-name:: The name of the field as displayed in the frontend.
+name-LANG:: The name of the field as displayed in the frontend, were +LANG+ is
+a lowercase two-letter language code.
 
 type:: See section Field types.
 
 acl:: Not yet implemented.
 
-possible-values:: The possible values of this field when it is a list.
+allowed:: The possible values of this field when it is a list.
 
-default-value:: The default value of this field.
+default:: The default value of this field.
 
 === Field types
 
-arbitrary-text:: The user can enter any text he wants. Everything after the
-first newline is stripped.
+line:: A single line of text.
 
-list:: The user can chose any of the +possible-values+ of this field. If he
+text:: Multi-line text.
+
+list:: The user can chose any of the +allowed+ values of this field. If he
 submits something different, an error will be returned.
 
 radio:: See +list+, but the frontend should not chose a drop-down list for
