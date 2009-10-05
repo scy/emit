@@ -88,6 +88,9 @@ something simple, but, most importantly, it must never change.
 name-LANG:: The name of the field as displayed in the frontend, were +LANG+ is
 a lowercase two-letter language code.
 
+help-LANG:: Additional help text for the user, where +LANG+ is a lowercase
+two-letter language code.
+
 type:: See section Field types.
 
 acl:: Not yet implemented.
