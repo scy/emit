@@ -1,11 +1,11 @@
-= Introduction
+== Introduction
 
 FRQ-Bugtracker is an attempt to write a good issue tracker, that is, a small,
 simple, fast and customizable one.
 
 This document contains the design concepts.
 
-= Overview
+== Overview
 ----------------------------------------
 ┌────────────────────────────────────┐
 │ backend: git, …                    │
@@ -24,7 +24,7 @@ This document contains the design concepts.
 └────────────────────────────────────┘
 ----------------------------------------
 
-= Communication layer
+== Communication layer
 
 typical HTTP requests could look like this:
 
@@ -44,9 +44,9 @@ GET /bugs/ HTTP/1.1
 X-bt-fields: description,submitter,version
 -------------------------------------------
 
-= Core
+== Core
 
-== File structure
+=== File structure
 
 -------------------------------------------
 <bug-id>/
@@ -63,7 +63,7 @@ X-bt-fields: description,submitter,version
 Where +<comment-id>+ is (for the git backend) a SHA-1 sum representing the
 contents of the tree which the comment contained when created.
 
-== File format (meta.txt)
+=== File format (meta.txt)
 
 All internals fields are uppercase, all user defined fields are lowercase.
 
@@ -76,7 +76,7 @@ MDATE:: Modification date of the file, as unix timestamp
 <internal>:: The value of the user-defined field with internal name
 +<internal>+.
 
-== Field definition
+=== Field definition
 
 The field definition defines what information is requested from the user
 and stored in the bug. It is loaded as part of the configuration of the
@@ -96,7 +96,7 @@ allowed:: The possible values of this field when it is a list.
 
 default:: The default value of this field.
 
-=== Field types
+==== Field types
 
 line:: A single line of text.
 
@@ -114,5 +114,5 @@ possible inputs.
 constant-text:: This may be used by hooks to provide some additional
 information inside of the form.
 
-== API
+=== API
 
