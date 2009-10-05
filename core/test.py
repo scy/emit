@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-import frqbt.manager
+import emit.manager
 import re
 import unittest
 
 class TrackerTests(unittest.TestCase):
 	
 	def setUp(self):
-		self.instance = frqbt.manager.Tracker()
+		self.instance = emit.manager.Tracker()
 	
 	def testVersion(self):
 		self.assertTrue(re.match('^0\.0-git$', self.instance.version),
