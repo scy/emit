@@ -73,7 +73,8 @@ CREATION-DATE:: Creation date of the file, as unix timestamp
 
 MODIFICATION-DATE:: Modification date of the file, as unix timestamp
 
-<internal>:: The value of the field +<internal>+.
+<internal>:: The value of the user-defined field with internal name
++<internal>+.
 
 == Field definition
 
