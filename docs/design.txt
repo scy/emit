@@ -69,9 +69,9 @@ All internals fields are uppercase, all user defined fields are lowercase.
 
 TYPE:: Type of this file (only +comment+ or +bug+ at the moment).
 
-CREATION-DATE:: Creation date of the file, as unix timestamp
+CDATE:: Creation date of the file, as unix timestamp
 
-MODIFICATION-DATE:: Modification date of the file, as unix timestamp
+MDATE:: Modification date of the file, as unix timestamp
 
 <internal>:: The value of the user-defined field with internal name
 +<internal>+.
