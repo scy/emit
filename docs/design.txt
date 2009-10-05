@@ -1,0 +1,109 @@
+= Introduction
+
+FRQ-Bugtracker is an attempt to write a good issue tracker, that is, a small,
+simple, fast and customizable one.
+
+This document contains the design concepts.
+
+= Overview
+----------------------------------------
+┌────────────────────────────────────┐
+│ backend: git, …                    │
+└────────────────────────────────────┘
+
+┌────────────────────────────────────┐
+│ core                               │
+└────────────────────────────────────┘
+
+┌────────────────────────────────────┐
+│ communication: HTTP                │
+└────────────────────────────────────┘
+
+┌────────────────────────────────────┐
+│ frontend: Web, Mail, CLI, XMPP, …  │
+└────────────────────────────────────┘
+----------------------------------------
+
+= Communication layer
+
+typical HTTP requests could look like this:
+
+-------------------------------------------
+POST /new HTTP/1.1
+X-bt-description: Crash when clicking on window title
+X-bt-version: 3.d-g345
+X-bt-submitter: sECuRE
+
+When clicking on window titles of tiled windows, the program
+crashes. I will attach logfile and backtrace as soon as I can
+reproduce this.
+-------------------------------------------
+
+-------------------------------------------
+GET /bugs/ HTTP/1.1
+X-bt-fields: description,submitter,version
+-------------------------------------------
+
+= Core
+
+== File structure
+
+-------------------------------------------
+<bug-id>/
+         meta.txt
+	 <comment-id>/
+	              meta.txt
+		      comment.txt
+		      attach/
+		             basename.jpg
+                      <more-comments>
+		      ...
+-------------------------------------------
+
+Where +<comment-id>+ is (for the git backend) a SHA-1 sum representing the
+contents of the tree which the comment contained when created.
+
+== File format (meta.txt)
+
+type:: Type of this file (only +comment+ at the moment).
+
+f-<internal>:: The value of the field +<internal>+.
+
+== Field definition
+
+The field definition defines what information is requested from the user
+and stored in the bug. It is loaded as part of the configuration of the
+core.
+
+internal-name:: The name of the field when internally used. This should be
+something simple, but, most importantly, it must never change.
+
+name:: The name of the field as displayed in the frontend.
+
+type:: See section Field types.
+
+acl:: Not yet implemented.
+
+possible-values:: The possible values of this field when it is a list.
+
+default-value:: The default value of this field.
+
+=== Field types
+
+arbitrary-text:: The user can enter any text he wants. Everything after the
+first newline is stripped.
+
+list:: The user can chose any of the +possible-values+ of this field. If he
+submits something different, an error will be returned.
+
+radio:: See +list+, but the frontend should not chose a drop-down list for
+displaying this field, but rather a list of radio buttons, if possible.
+
+checkbox:: Only yes/no (or other binary values like true/false, 1/0, …) are
+possible inputs.
+
+constant-text:: This may be used by hooks to provide some additional
+information inside of the form.
+
+== API
+
