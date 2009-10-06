@@ -10,7 +10,7 @@ sub dispatch_args {
         prefix => 'App::emit',
         table => [
             '' => { app => 'Start', rm => 'start' },
-            #'vote[post]' => { app => 'Start', rm => 'vote_post' },
+            'new' => { app => 'New', rm => 'new_issue' },
             #'add[post]' => { app => 'Start', rm => 'add_post' },
             #':rm' => { app => 'Start' },
         ],
