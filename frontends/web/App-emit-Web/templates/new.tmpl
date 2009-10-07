@@ -1,7 +1,11 @@
-<h1>new bugreport</h1>
+<TMPL_INCLUDE NAME="header.tmpl">
+<h1>New Bugreport</h1>
 <form method="post">
+<table border="0" class="new_issue">
 <TMPL_LOOP NAME=FIELDS>
 	<TMPL_INCLUDE_VAR NAME="type">
 </TMPL_LOOP>
-<input type="submit">
+</table>
 </form>
+<input type="submit" value="Submit">
+<TMPL_INCLUDE NAME="footer.tmpl">

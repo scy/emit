@@ -26,7 +26,7 @@ sub new_issue {
     apply { $_->{type} = 'field_' . $_->{type} . '.tmpl' } @fields;
 
     # TODO: user’s $LANG. set name to display, strip other name-<LANG> fields
-    apply { if (defined($_->{'name-en'})) { $_->{name} = $_->{'name-en'} } } @fields;
+    apply { if (defined($_->{'name-en'})) { $_->{displayname} = $_->{'name-en'} } else { $_->{displayname} = $_->{name}; } } @fields;
 
     $tmpl->param(FIELDS => \@fields);
 
