@@ -1,10 +1,12 @@
 package App::emit::New;
 
-use base 'CGI::Application';
+use base ('CGI::Application::Plugin::HTCompiled', 'CGI::Application');
+use CGI::Carp qw(fatalsToBrowser);
 use v5.10;
 use Data::Dumper;
-use HTML::Template;
+use HTML::Template::Compiled;
 use emit;
+use List::MoreUtils qw(apply);
 
 sub setup {
     my $self = shift;
@@ -20,7 +22,13 @@ sub new_issue {
     my $emit = emit->new;
     my $tmpl = $self->load_tmpl('new.tmpl');
 
-    $tmpl->param(FIELDS => $emit->fields);
+    my @fields = @{$emit->fields};
+    apply { $_->{type} = 'field_' . $_->{type} . '.tmpl' } @fields;
+
+    # TODO: user’s $LANG. set name to display, strip other name-<LANG> fields
+    apply { if (defined($_->{'name-en'})) { $_->{name} = $_->{'name-en'} } } @fields;
+
+    $tmpl->param(FIELDS => \@fields);
 
     return $tmpl->output;
 }

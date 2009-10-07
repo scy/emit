@@ -1,7 +1,7 @@
 <h1>new bugreport</h1>
 <form method="post">
 <TMPL_LOOP NAME=FIELDS>
-      <TMPL_VAR NAME=NAME>: <input type=<TMPL_VAR NAME=TYPE> name=<TMPL_VAR NAME=NAME> value=<TMPL_VAR NAME=default>><br>
+	<TMPL_INCLUDE_VAR NAME="type">
 </TMPL_LOOP>
 <input type="submit">
 </form>
