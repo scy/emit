@@ -12,11 +12,7 @@ This document contains the design concepts.
 └────────────────────────────────────┘
 
 ┌────────────────────────────────────┐
-│ manager                            │
-└────────────────────────────────────┘
-
-┌────────────────────────────────────┐
-│ communication: HTTP                │
+│ manager, speaks HTTP               │
 └────────────────────────────────────┘
 
 ┌────────────────────────────────────┐
@@ -30,9 +26,9 @@ typical HTTP requests could look like this:
 
 -------------------------------------------
 POST /new HTTP/1.1
-X-bt-description: Crash when clicking on window title
-X-bt-version: 3.d-g345
-X-bt-submitter: sECuRE
+X-emit-description: Crash when clicking on window title
+X-emit-version: 3.d-g345
+X-emit-submitter: sECuRE
 
 When clicking on window titles of tiled windows, the program
 crashes. I will attach logfile and backtrace as soon as I can
@@ -40,16 +36,59 @@ reproduce this.
 -------------------------------------------
 
 -------------------------------------------
-GET /bugs HTTP/1.1
-X-bt-fields: description,submitter,version
+GET /issues HTTP/1.1
+X-emit-fields: description,submitter,version
 -------------------------------------------
+
+=== Specified requests
+
+The following requests have to be implemented by the manager:
+
+1) Creating a new issue
+
+ POST /write HTTP/1.1
+
+ <arbitrary json encoded key/value pairs>
+
+2) Creating a new comment
+ 
+ POST /write HTTP/1.1
+
+ {
+	 "!id":"foo"
+	 <arbitrary key/value pairs>
+ }
+
+3) Getting issues
+
+ POST /read HTTP/1.1
+
+ {
+	 "!id":"foo"
+ }
+
+or:
+
+ POST /read HTTP/1.1
+
+ {
+	 "!filter" : {
+		 <arbitrarily complex filters implemented by scytale>
+	 }
+	 "!fields" : [
+	 	"date",
+		"status",
+		...
+	 ]
+ }
+
 
 == Core
 
 === File structure
 
 -------------------------------------------
-<bug-id>/
+<issue-id>/
          meta.txt
 	 <comment-id>/
 	              meta.txt
@@ -67,7 +106,7 @@ contents of the tree which the comment contained when created.
 
 All internals fields are uppercase, all user defined fields are lowercase.
 
-TYPE:: Type of this file (only +comment+ or +bug+ at the moment).
+TYPE:: Type of this file (only +comment+ or +issue+ at the moment).
 
 CDATE:: Creation date of the file, as unix timestamp
 
@@ -79,7 +118,7 @@ MDATE:: Modification date of the file, as unix timestamp
 === Field definition
 
 The field definition defines what information is requested from the user
-and stored in the bug. It is loaded as part of the configuration of the
+and stored in the issue. It is loaded as part of the configuration of the
 core.
 
 name:: The name of the field when internally used. This should be
