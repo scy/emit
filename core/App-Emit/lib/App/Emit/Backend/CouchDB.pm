@@ -16,30 +16,37 @@ sub BUILD {
     $self->_db($db);
 }
 
+=head2 write($req)
+
+Writes the given document to the database (updates if necessary).
+
+=cut
 sub write {
     my ($self, $req) = @_;
 
-    # If this is an update
-    if (defined($req->{id})) {
-        # TODO: update
-    } else {
-        # Create a new document
-        $self->_db->save_doc($req)->recv;
-        return { _id => $req->{_id} };
+    # If this is an update, check if _rev is given
+    if (!defined($req->{_id}) && !defined($req->{_rev})) {
+        die "Update without _rev\n";
     }
+
+    $self->_db->save_doc($req)->recv;
+    return { _id => $req->{_id} };
 }
 
+=head2 read($req)
+
+Returns all issues matching the specified request.
+
+=cut
 sub read {
     my ($self, $req) = @_;
+
+    die "only requests for a specific ID implemented" unless defined($req->{_id});
 
     my $cv = $self->_db->open_doc($req->{_id});
     my $doc = $cv->recv;
     
     $doc
-
-#    $req->{
-#
-#    $self->_db->
 }
 
 1
