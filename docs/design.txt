@@ -47,6 +47,8 @@ The following requests have to be implemented by the manager:
 1) Creating a new issue
 
  POST /write HTTP/1.1
+ User-agent: <arbitrary user agent>
+ X-emit-API-version: 1
 
  <arbitrary json encoded key/value pairs>
 
