@@ -25,7 +25,7 @@ sub write {
     my ($self, $req) = @_;
 
     # If this is an update, check if _rev is given
-    if (!defined($req->{_id}) && !defined($req->{_rev})) {
+    if (defined($req->{_id}) && !defined($req->{_rev})) {
         die "Update without _rev\n";
     }
 
