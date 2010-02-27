@@ -1,19 +1,16 @@
-use strict;
-use warnings;
-use ExtUtils::MakeMaker;
+use inc::Module::Install;
 
-WriteMakefile(
-    NAME                => 'App::Emit',
-    AUTHOR              => q{Michael Stapelberg <michael@stapelberg.de>},
-    VERSION_FROM        => 'lib/App/Emit.pm',
-    ABSTRACT_FROM       => 'lib/App/Emit.pm',
-    ($ExtUtils::MakeMaker::VERSION >= 6.3002
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'App-Emit-*' },
-);
+name     'App-Emit';
+all_from 'lib/App/Emit.pm';
+author   'Tim Weber, Michael Stapelberg';
+
+requires 'Moose';
+requires 'JSON::XS';
+requires 'Try::Tiny';
+requires 'HTTP::Request';
+requires 'HTTP::Response';
+requires 'AnyEvent';
+requires 'AnyEvent::FCGI';
+requires 'AnyEvent::CouchDB';
+
+WriteAll;
