@@ -1,4 +1,5 @@
 package App::emit::dispatch;
+# vim:ts=4:sw=4:expandtab
 
 use strict;
 use warnings;
@@ -18,4 +19,3 @@ sub dispatch_args {
 }
 
 1
-# vim:ts=4:sw=4:expandtab

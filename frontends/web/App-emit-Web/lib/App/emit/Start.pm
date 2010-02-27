@@ -1,4 +1,5 @@
 package App::emit::Start;
+# vim:ts=4:sw=4:expandtab
 
 use base 'CGI::Application';
 use v5.10;
@@ -37,4 +38,3 @@ sub new_issue {
 }
 
 1
-# vim:ts=4:sw=4:expandtab

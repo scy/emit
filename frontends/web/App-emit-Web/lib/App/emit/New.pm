@@ -1,4 +1,5 @@
 package App::emit::New;
+# vim:ts=4:sw=4:expandtab
 
 use base ('CGI::Application::Plugin::HTCompiled', 'CGI::Application');
 use CGI::Carp qw(fatalsToBrowser);
@@ -34,4 +35,3 @@ sub new_issue {
 }
 
 1
-# vim:ts=4:sw=4:expandtab
