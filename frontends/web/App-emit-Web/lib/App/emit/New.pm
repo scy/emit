@@ -45,16 +45,14 @@ sub new_issue {
             return 'Error: ' . $msg;
         }
     } else {
-        return '<pre>'.Dumper($self);
+        apply { $_->{type} = 'field_' . $_->{type} . '.tmpl' } @fields;
 
-    apply { $_->{type} = 'field_' . $_->{type} . '.tmpl' } @fields;
+        # TODO: user’s $LANG. set name to display, strip other name-<LANG> fields
+        apply { if (defined($_->{'name-en'})) { $_->{displayname} = $_->{'name-en'} } else { $_->{displayname} = $_->{name}; } } @fields;
 
-    # TODO: user’s $LANG. set name to display, strip other name-<LANG> fields
-    apply { if (defined($_->{'name-en'})) { $_->{displayname} = $_->{'name-en'} } else { $_->{displayname} = $_->{name}; } } @fields;
+        $tmpl->param(FIELDS => \@fields);
 
-    $tmpl->param(FIELDS => \@fields);
-
-    return $tmpl->output;
+        return $tmpl->output;
     }
 }
 
