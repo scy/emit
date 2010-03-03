@@ -25,16 +25,4 @@ sub start {
     return $tmpl->output;
 }
 
-sub new_issue {
-    my $self = shift;
-    my $emit = emit->new;
-    #my $tmpl = $self->load_tmpl('new.tmpl');
-        #HTML::Template->new(filename => 'new.tmpl');
-
-	#$tmpl->param(FIELDS => $emit->fields);
-
-    #return $tmpl->output;
-    return 'bleh';
-}
-
 1
