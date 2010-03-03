@@ -41,10 +41,15 @@ Returns all issues matching the specified request.
 sub read {
     my ($self, $req) = @_;
 
-    die "only requests for a specific ID implemented" unless defined($req->{_id});
+    if (defined($req->{_id})) {
+        my $cv = $self->_db->open_doc($req->{_id});
+        return $cv->recv;
+    }
 
-    my $cv = $self->_db->open_doc($req->{_id});
-    my $doc = $cv->recv;
+    # Get all documents
+    # TODO: filter out keys which are not requested
+    my $cv = $self->_db->view('bugs/all');
+    my $doc = $cv->recv->{rows};
     
     $doc
 }
