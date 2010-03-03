@@ -1,0 +1,22 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+<h1>Bugreports</h1>
+<table border="0" class="issue_list" width="100%">
+<tr>
+<th style="width: 7%">ID</th>
+<th>Description</th>
+</tr>
+</tr>
+<TMPL_LOOP NAME=BUGS>
+<tr>
+<td style="font-family: monospace">
+<a href="/App-emit-Web/cgi.pl/details?id=<TMPL_VAR _id>">
+<TMPL_VAR shortid>
+</a>
+</td>
+<td>
+<TMPL_VAR description>
+</td>
+</tr>
+</TMPL_LOOP>
+</table>
+<TMPL_INCLUDE NAME="footer.tmpl">

@@ -12,6 +12,8 @@ sub dispatch_args {
         table => [
             '' => { app => 'Start', rm => 'start' },
             'new' => { app => 'New', rm => 'new_issue' },
+            'details' => { app => 'Detail', rm => 'detail' },
+            'list' => { app => 'List', rm => 'list' },
             #'add[post]' => { app => 'Start', rm => 'add_post' },
             #':rm' => { app => 'Start' },
         ],

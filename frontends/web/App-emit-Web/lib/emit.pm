@@ -60,7 +60,68 @@ sub create_bug {
     return (0, 'Invalid response from EMIT core') unless defined($res->{_id});
 
     return (1, $res->{_id});
-
 }
+
+=head2 get_bug($id)
+
+
+=cut
+sub get_bug {
+    my ($self, $id) = @_;
+
+    my $json = encode_json { _id => $id };
+    my $cv = AnyEvent->condvar;
+    http_post 'http://localhost:81/read', $json, sub { $cv->send(@_) };
+    my ($body, $headers) = $cv->recv;
+
+    if ($headers->{Status} =~ /^59/) {
+        # Internal error (could not resolve host, …)
+        return (0, $headers->{Reason});
+    }
+
+    unless ($headers->{Status} =~ /^2/) {
+        # EMIT error, just pass on the message
+        return (0, $body);
+    }
+
+    # everything went well, try to decode the body’s JSON and return it
+    my $res;
+    try { $res = decode_json $body };
+    # TODO: check for errors?
+    #return (0, 'Invalid response from EMIT core') unless defined($res->{_id});
+
+    return (1, $res);
+}
+
+=head2 list_bugs
+
+=cut
+sub list_bugs {
+    my ($self, $filter) = @_;
+
+    my $json = encode_json {};
+    my $cv = AnyEvent->condvar;
+    http_post 'http://localhost:81/read', $json, sub { $cv->send(@_) };
+    my ($body, $headers) = $cv->recv;
+
+    if ($headers->{Status} =~ /^59/) {
+        # Internal error (could not resolve host, …)
+        return (0, $headers->{Reason});
+    }
+
+    unless ($headers->{Status} =~ /^2/) {
+        # EMIT error, just pass on the message
+        return (0, $body);
+    }
+
+    # everything went well, try to decode the body’s JSON and return it
+    my $res;
+    try { $res = decode_json $body };
+    # TODO: check for errors?
+    #return (0, 'Invalid response from EMIT core') unless defined($res->{_id});
+
+    return (1, $res);
+}
+
 
 1
