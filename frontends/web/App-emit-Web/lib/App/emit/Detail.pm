@@ -4,6 +4,7 @@ package App::emit::Detail;
 use base ('CGI::Application::Plugin::HTCompiled', 'CGI::Application');
 use CGI::Carp qw(fatalsToBrowser);
 use v5.10;
+use FindBin;
 use Data::Dumper;
 use HTML::Template::Compiled;
 use emit;
@@ -12,7 +13,7 @@ use List::MoreUtils qw(apply);
 sub setup {
     my $self = shift;
 
-    $self->tmpl_path('/home/michael/emit/frontends/web/App-emit-Web/templates/');
+    $self->tmpl_path("$FindBin::RealBin/templates/");
     $self->run_modes([ 'detail' ]);
     $self->mode_param('rm');
     $self->start_mode('detail');

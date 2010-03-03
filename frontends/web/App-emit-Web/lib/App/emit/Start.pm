@@ -3,6 +3,7 @@ package App::emit::Start;
 
 use base 'CGI::Application';
 use v5.10;
+use FindBin;
 use Data::Dumper;
 use HTML::Template;
 use emit;
@@ -10,7 +11,7 @@ use emit;
 sub setup {
     my $self = shift;
 
-    $self->tmpl_path('/home/michael/emit/frontends/web/App-emit-Web/templates/');
+    $self->tmpl_path("$FindBin::RealBin/templates/");
     $self->run_modes([ 'start', 'new_issue' ]);
     $self->mode_param('rm');
     $self->start_mode('start');
@@ -19,6 +20,7 @@ sub setup {
 sub start {
     my $self = shift;
     my $emit = emit->new;
+
     my $tmpl = $self->load_tmpl('index.tmpl');
     #HTML::Template->new(filename => 'index.tmpl');
 
