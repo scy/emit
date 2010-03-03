@@ -31,20 +31,19 @@ curl -X POST http://localhost:81/write '{"api": "yay"}'
 Derzeit über normales CGI eingebunden (FastCGI kommt noch), in einem Apache:
 
 <VirtualHost *:9070>
-	<Directory "/home/michael/emit/frontends/web">
+	<Directory "/home/michael/emit/frontends/web/App-emit-Web">
 		Options Indexes FollowSymLinks +ExecCGI
 		AllowOverride None
 		Order allow,deny
 		Allow from all
 	</Directory>
 
-	DocumentRoot /home/michael/emit/frontends/web
+	DocumentRoot /home/michael/emit/frontends/web/App-emit-Web
+
+	RewriteEngine on
+	RewriteRule ^/(.*) /cgi.pl/$1
 
 	AddHandler cgi-script cgi pl
 </VirtualHost>
 
-Die URL für einen neuen Bugreport lautet dann:
-
-http://localhost:9070/App-emit-Web/cgi.pl/new
-
-Derzeit sind die Pfade hard-coded.
+Auf http://localhost:9070/ erwartet einen dann die Index-Seite.
