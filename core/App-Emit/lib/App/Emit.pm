@@ -67,6 +67,8 @@ sub handle_request {
             $answer = $be->write($req);
         } elsif ($request->uri eq '/read') {
             $answer = $be->read($req);
+        } elsif ($request->uri eq '/delete') {
+            $answer = $be->delete($req);
         } else {
             return HTTP::Response->new(404);
         }

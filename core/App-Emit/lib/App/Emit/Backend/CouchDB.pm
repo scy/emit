@@ -54,4 +54,22 @@ sub read {
     $doc
 }
 
+=head2 delete($req)
+
+Deletes the bug identified by $req->{_id}.
+
+=cut
+sub delete {
+    my ($self, $req) = @_;
+
+    die "delete without _id" unless defined($req->{_id});
+
+    # We need to get the document from the database to be able to use it in
+    # remove_doc (document _rev has to be present to make sure nobody modifies
+    # the document in the meantime)
+    my $doc = $self->_db->open_doc($req->{_id})->recv;
+
+    $self->_db->remove_doc($doc)->recv;
+}
+
 1

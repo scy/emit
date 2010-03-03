@@ -1,5 +1,11 @@
 <TMPL_INCLUDE NAME="header.tmpl">
 <h1>Bugreport details</h1>
+
+<form method="post" action="/delete">
+<input type="hidden" name="id" value="<TMPL_VAR ID>">
+<input type="submit" value="Delete this bug">
+</form>
+
 <table border="0" class="new_issue">
 <TMPL_LOOP NAME=FIELDS>
 	<TMPL_INCLUDE_VAR NAME="type">

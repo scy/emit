@@ -14,6 +14,7 @@ sub dispatch_args {
             'new' => { app => 'New', rm => 'new_issue' },
             'details' => { app => 'Detail', rm => 'detail' },
             'list' => { app => 'List', rm => 'list' },
+            'delete' => { app => 'Detail', rm => 'delete' },
             #'add[post]' => { app => 'Start', rm => 'add_post' },
             #':rm' => { app => 'Start' },
         ],
