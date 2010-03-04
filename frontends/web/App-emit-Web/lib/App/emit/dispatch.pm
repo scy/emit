@@ -15,6 +15,7 @@ sub dispatch_args {
             'details' => { app => 'Detail', rm => 'detail' },
             'list' => { app => 'List', rm => 'list' },
             'delete' => { app => 'Detail', rm => 'delete' },
+            'comment' => { app => 'Detail', rm => 'comment' },
             #'add[post]' => { app => 'Start', rm => 'add_post' },
             #':rm' => { app => 'Start' },
         ],

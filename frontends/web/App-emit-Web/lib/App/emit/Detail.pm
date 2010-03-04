@@ -14,7 +14,7 @@ sub setup {
     my $self = shift;
 
     $self->tmpl_path("$FindBin::RealBin/templates/");
-    $self->run_modes([ qw(detail delete) ]);
+    $self->run_modes([ qw(detail delete comment) ]);
     $self->mode_param('rm');
     $self->start_mode('detail');
 }
@@ -26,10 +26,12 @@ sub detail {
     my @fields = @{$emit->fields};
     my $id = $self->query->param('id');
 
-    my ($ok, $bug) = $emit->get_bug($id);
+    my ($ok, $bugs) = $emit->get_bug({ '_parent' => $id });
     if (!$ok) {
-        return 'error: ' . $bug;
+        return 'error: ' . $bugs;
     }
+
+    my ($bug, @comments) = @{$bugs};
 
     # Integrate key/value pairs into @fields
     for my $field (@fields) {
@@ -41,10 +43,12 @@ sub detail {
 
     apply { $_->{type} = 'detail_' . $_->{type} . '.tmpl' } @fields;
 
+    apply { $_->{tmpl_indent} = scalar @{$_->{ancestors}} * 30 } @comments;
+
     # TODO: user’s $LANG. set name to display, strip other name-<LANG> fields
     apply { if (defined($_->{'name-en'})) { $_->{displayname} = $_->{'name-en'} } else { $_->{displayname} = $_->{name}; } } @fields;
 
-    $tmpl->param(FIELDS => \@fields, ID => $id);
+    $tmpl->param(FIELDS => \@fields, COMMENTS => \@comments, ID => $id);
 
     return $tmpl->output;
 }
@@ -65,6 +69,32 @@ sub delete {
     $self->header_type('redirect');
     $self->header_props('-url' => '/list?msg=deleted');
     return 'Bug deleted, redirecting to /list';
+}
+
+sub comment {
+    my $self = shift;
+    my $emit = emit->new;
+    my $tmpl = $self->load_tmpl('detail.tmpl');
+    my @fields = @{$emit->fields};
+    my $id = $self->query->param('id');
+    my $desc = $self->query->param('description');
+
+    # TODO: use @fields
+    my $req = {
+        parent => $id,
+        description => $desc,
+    };
+
+    # TODO: check privileges
+    my ($ok, $err) = $emit->create_bug($req);
+
+    if (!$ok) {
+        return 'error deleting: ' . $err;
+    }
+    $self->header_type('redirect');
+    $self->header_props('-url' => '/details?id=' . $id);
+    return 'Comment added, redirecting to details';
+
 }
 
 1

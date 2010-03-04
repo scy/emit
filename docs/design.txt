@@ -37,7 +37,7 @@ The following requests have to be implemented by the manager:
 
  <arbitrary json encoded key/value pairs>
 
-2) Creating a new comment
+2) Updating an issue
  
  POST /write HTTP/1.1
 
@@ -46,13 +46,26 @@ The following requests have to be implemented by the manager:
 	 <arbitrary key/value pairs>
  }
 
-3) Getting issues
+3) Creating a comment
+
+ POST /write HTTP/1.1
+
+ {
+	 "_parent":"foo"
+	 <arbitrary key/value pairs>
+ }
+
+
+4) Getting issues
 
  POST /read HTTP/1.1
 
  {
 	 "_id":"foo"
  }
+
+The special parameter _children has to be set to true if you want to receive
+all the children of this issue (comments, subcomments, …)
 
 or:
 

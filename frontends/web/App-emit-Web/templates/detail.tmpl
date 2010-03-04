@@ -11,4 +11,25 @@
 	<TMPL_INCLUDE_VAR NAME="type">
 </TMPL_LOOP>
 </table>
+
+<h2>comments</h2>
+
+<TMPL_LOOP NAME=COMMENTS>
+<div style="margin-left: <TMPL_VAR NAME="tmpl_indent">px">
+	<TMPL_VAR description>
+</div>
+<hr>
+</TMPL_LOOP>
+
+<h2>new comment</h2>
+
+<form method="post" action="/comment">
+<input type="hidden" name="id" value="<TMPL_VAR ID>">
+<!-- TODO: use fields -->
+<textarea name="description" cols="80" rows="10">
+</textarea>
+<br>
+<input type="submit">
+</form>
+
 <TMPL_INCLUDE NAME="footer.tmpl">

@@ -76,15 +76,15 @@ sub create_bug {
     (1, $res->{_id})
 }
 
-=head2 get_bug($id)
+=head2 get_bug($req)
 
-Gets the bug identified by $id from EMIT.
+Gets the specified bug identified from EMIT.
 See _emit_request for return codes.
 
 =cut
 sub get_bug {
-    my ($self, $id) = @_;
-    my ($ok, $res) = $self->_emit_request('http://localhost:81/read', { _id => $id});
+    my ($self, $req) = @_;
+    my ($ok, $res) = $self->_emit_request('http://localhost:81/read', $req);
     return ($ok, $res) unless $ok;
     # TODO: check for errors?
     #return (0, 'Invalid response from EMIT core') unless defined($res->{_id});

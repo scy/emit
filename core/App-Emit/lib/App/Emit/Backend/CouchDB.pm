@@ -29,6 +29,19 @@ sub write {
         die "Update without _rev\n";
     }
 
+    # If this is a subtree, we save an additional key which contains
+    # the whole hierarchy of this subtree
+    if (defined($req->{_parent})) {
+        my $parentbug = $self->read({ _id => $req->{_parent} });
+        my @ancestors = ();
+        if (defined($parentbug->{ancestors})) {
+            @ancestors = @{$parentbug->{ancestors}};
+        }
+        push @ancestors, $req->{_parent};
+        $req->{ancestors} = \@ancestors;
+        delete $req->{_parent};
+    }
+
     $self->_db->save_doc($req)->recv;
     return { _id => $req->{_id} };
 }
@@ -43,7 +56,19 @@ sub read {
 
     if (defined($req->{_id})) {
         my $cv = $self->_db->open_doc($req->{_id});
-        return $cv->recv;
+        return $cv;
+    }
+
+    if (defined($req->{_parent})) {
+        my $cv = $self->_db->open_doc($req->{_parent});
+        my $bug = $cv->recv;
+        $cv = $self->_db->view('bugs/anc', {
+            startkey => [$req->{_parent}],
+            endkey => [$req->{_parent}, {}],
+        });
+        my $children = $cv->recv;
+        my @children = map { $_->{value} } @{$children->{rows}};
+        return [ $bug, @children ];
     }
 
     # Get all documents
